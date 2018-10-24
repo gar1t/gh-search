@@ -57,6 +57,7 @@ def _search(gh, args):
         for repo in page:
             sys.stderr.write(repo.full_name + "\n")
             csv_out.writerow(_repo_csv_row(repo))
+            sys.stdout.flush()
 
 csv_header = (
     "name",
@@ -68,7 +69,6 @@ csv_header = (
     "issues",
     "pulls",
     "releases",
-    "watchers",
     "commits_1_mos",
     "commits_3_mos",
     "commits_6_mos",
@@ -87,7 +87,6 @@ def _repo_csv_row(repo):
         repo.get_issues().totalCount,
         repo.get_pulls().totalCount,
         repo.get_releases().totalCount,
-        repo.watchers,
         _commit_count(commits, 4),
         _commit_count(commits, 13),
         _commit_count(commits, 26),
